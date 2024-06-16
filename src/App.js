@@ -1,6 +1,10 @@
 import React from 'react';
+
 import './App.css';
+
 import Login from './components/login/Login';
+import Signup from './components/signup/Signup';
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {app} from './firebase/Firebase';
@@ -17,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <Login/>
+      <Signup/>
     </div>
   );
 }

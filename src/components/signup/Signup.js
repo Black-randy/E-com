@@ -1,7 +1,5 @@
+import './Signup.css';
 import React from 'react';
-import './login.css';
-
-
 import {
   MDBBtn,
   MDBContainer,
@@ -10,35 +8,38 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
+
   MDBIcon
 }
   from 'mdb-react-ui-kit';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+  import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
 
-function Login() {
+function Signup() {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function loginwithemail() {
-    console.log("login with email")
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-
-        const user = userCredential.user;
-        console.log(user)
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+  function signupwithemail() {
+    console.log("Create New user with Email And Password")
+    
+    createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+    // ..
+  });
   }
 
   return (
     <MDBContainer fluid className='p-4 background-radial-gradient overflow-hidden'>
 
-     
       <MDBRow>
 
         <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
@@ -49,10 +50,7 @@ function Login() {
           </h1>
 
           <p className='px-3' style={{ color: 'hsl(218, 81%, 85%)' }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-            quibusdam tempora at cupiditate quis eum maiores libero
-            veritatis? Dicta facilis sint aliquid ipsum atque?
+           We are Awsomeee
           </p>
 
         </MDBCol>
@@ -63,15 +61,25 @@ function Login() {
           <MDBCard className='my-5 bg-glass'>
             <MDBCardBody className='p-5'>
 
-              <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' onChange={e => setEmail(e.target.value)} />
-              <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' onChange={e => setPassword(e.target.value)} />
+            <MDBRow>
+                <MDBCol col='6'>
+                  <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text'/>
+                </MDBCol>
+
+                <MDBCol col='6'>
+                  <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text'/>
+                </MDBCol>
+              </MDBRow>
+
+              <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email'onChange={e=>setEmail(e.target.value)}/>
+              <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' onChange={e=>setPassword(e.target.value)}/>
 
 
-              <MDBBtn className='w-100 mb-4' size='md' onClick={loginwithemail}>Login</MDBBtn>
+              <MDBBtn className='w-100 mb-4' size='md' onClick={signupwithemail}>Login</MDBBtn>
 
               <div className="text-center">
 
-                <p>or Login with:</p>
+                <p>or Signup :</p>
 
                 <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
                   <MDBIcon fab icon='facebook-f' size="sm" />
@@ -96,4 +104,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
