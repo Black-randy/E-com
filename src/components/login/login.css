@@ -1,6 +1,13 @@
+.bg-image {
+    background-image: url("https://wallpapercave.com/wp/wp7478118.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
 .background-radial-gradient {
     background-color: hsl(0, 0%, 55%);
-    background-image: 'https://wallpapercave.com/wp/wp7478118.jpg';
+    background-image: '';
   }
   
   #radius-shape-1 {
@@ -24,5 +31,5 @@
   
   .bg-glass {
     background-color: hsla(0, 0%, 100%, 0.9) !important;
-    backdrop-filter: saturate(200%) blur(25px);
+    backdrop-filter: saturate(200%) blur(20px);
   }
