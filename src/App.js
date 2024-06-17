@@ -7,7 +7,9 @@ import Signup from './components/signup/Signup';
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import {app} from './firebase/Firebase';
+import { app } from './firebase/Firebase';
+
+import UserAuthContextProvider from './components/Auth/UserAuthContext'
 
 // Initialize Firebase App if not already initialized
 if (!app) {
@@ -20,8 +22,10 @@ getAuth(app);
 function App() {
   return (
     <div className="App">
-      <Login/>
-      <Signup/>
+      <UserAuthContextProvider>
+        <Login />
+        <Signup />
+      </UserAuthContextProvider>
     </div>
   );
 }
