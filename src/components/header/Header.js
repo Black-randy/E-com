@@ -46,6 +46,12 @@ function Header() {
                                 <MDBNavbarLink href='/contact'>Contact Us</MDBNavbarLink>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
+                                <MDBNavbarLink href='/signin'>Sign in</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink href='/signup'>Sign up</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
                                 <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
                                     Comming soon
                                 </MDBNavbarLink>

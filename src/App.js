@@ -8,8 +8,8 @@ import { app } from './firebase/Firebase';
 import About from "./pages/about/About.js";
 import Home from "./pages/home/Home.js";
 import Layout from "./components/Layout.js";
-import Login from "./pages/login/Login.js";
-import Signup from "./pages/signup/Signup.js";
+import Signup from "./pages/sign_up/Signup.js";
+import Signin from "./pages/sign_in/Signin";
 import Contact from './pages/contact/Contact.js';
 
 if (!app) {
@@ -27,7 +27,7 @@ function App() {
         <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="login" element={<Login />} />
+          <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
 
         </Route>
