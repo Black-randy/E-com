@@ -6,7 +6,7 @@ export function useUserAuth() {
 export function UserAuthContextProvider({ children }) {
     const [user, setUser] = useState({});
   
-  
+  // test
     return (
       <userAuthContext.Provider
         value={{ user, logIn, signUp, logOut, googleSignIn }}

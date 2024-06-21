@@ -34,15 +34,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [Name, setName] = useState("");
   const [UserName, setUserName] = useState("");
-  const [justifyActive, setJustifyActive] = useState('tab1');;
 
-  const handleJustifyClick = (value) => {
-    if (value === justifyActive) {
-      return;
-    }
-
-    setJustifyActive(value);
-  };
   function loginwithemail(event) {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
@@ -98,32 +90,12 @@ function Login() {
 
             <MDBCard className='my-5 bg-glass-card-2'>
               <MDBCardBody className='p-3'>
-              <MDBRow>
-                  <MDBTabs pills justify >
-                    
-                    <MDBCol col='6'>
-                      <MDBTabsItem>
-                        <MDBTabsLink className='glass-button' onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>
-                        <MDBIcon fas icon='user' className='me-2' />Login
-                        </MDBTabsLink>
-                      </MDBTabsItem>
-                    </MDBCol>
-
-                    <MDBCol col='6'>
-                      <MDBTabsItem>
-                        <MDBTabsLink className='glass-button' onClick={() => handleJustifyClick('tab2')} active={justifyActive === 'tab2'}>
-                        <MDBIcon fas icon="user-plus" className='me-2' />Register
-                        </MDBTabsLink>
-                      </MDBTabsItem>
-                    </MDBCol>
-
-                  </MDBTabs>
-                </MDBRow>
 
 
-                <MDBTabsContent>
 
-                  <MDBTabsPane open={justifyActive === 'tab1'}>
+                
+
+                  
                    
 
                     <MDBCardBody className='text-Black p-1 w-100 d-flex flex-column' >
@@ -156,9 +128,9 @@ function Login() {
 
                     </MDBCardBody>
 
-                  </MDBTabsPane>
+                  
 
-                  <MDBTabsPane open={justifyActive === 'tab2'}>
+                  
 
 
                   <MDBCardBody className='p-1'>
@@ -203,9 +175,9 @@ function Login() {
 
                     </MDBCardBody>
 
-                  </MDBTabsPane>
+                  
 
-                </MDBTabsContent>
+                
 
               </MDBCardBody>
             </MDBCard>
