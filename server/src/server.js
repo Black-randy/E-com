@@ -4,7 +4,13 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-
+const cors = require('cors');
+// Allow all origins
+app.use(cors());
+// Allow specific origin(s)
+app.use(cors({
+  origin: 'https://willowcraft.vercel.app/'
+}));
 
 const { getCollectionItems, insertItem } = require('./dataService');
 
