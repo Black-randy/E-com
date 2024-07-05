@@ -1,79 +1,73 @@
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/Form';
-import { useState } from 'react';
-import Message from './Component/Modal';
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Form, Button, FloatingLabel} from 'react-bootstrap';
 
 function AdminPage() {
-    const [show, setShow] = useState(false);
-    const [id, setId] = useState();
-    const [name,setName] = useState();
-    const [price,setPrice] = useState();
-    const [description,setDescription] = useState();
-    const [url,setUrl] = useState();
+    const [currentView] = useState('home');
+    const [formData, setFormData] = useState({
+        id: '',
+        name: '',
+        price: '',
+        description: '',
+        url: ''
+    });
 
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, name,price,description,url })
+    const getTitle = () => ({
+        'product-input': 'Product Input',
+        'product-list': 'Product List',
+        'settings': 'Settings',
+        'log-out': 'Log Out'
+    })[currentView] || 'Welcome';
+
+    const handleChange = (field) => (e) => {
+        setFormData(prev => ({ ...prev, [field]: e.target.value }));
     };
 
-    function UploadData() {
-        console.log("Uploading Data")
-        fetch('/api/post_product', requestOptions)
-        .then(response => response.json())
-        .then(
-            
-            ResetForm());
-    }
-    function ResetForm(){
-        setShow(true)
-        setId("")
-        setName("")
-        setPrice("")
-        setDescription("")
-        setUrl("")
-    }
-        console.log(show)
-  return (
-    <div>
-  
-    <Message show={show}/>
-    <Card style={{ width: '80%', marginLeft: '10%' }}>
-    <Card.Header>ADMIN PAGE</Card.Header>
-    <Card.Body>
-      <Card.Title>PRODUCT DATA INPUT</Card.Title>
-        <Form>
-            <FloatingLabel
-                controlId="id"
-                label="ID"
-                className="mb-3"
-            >
-                <Form.Control value={id} type="text" placeholder="ID" onChange={e => setId(e.target.value)}/>
-            </FloatingLabel>
-            <FloatingLabel controlId="name" label="Name">
-                <Form.Control value={name} type="text" placeholder="Name" onChange={e => setName(e.target.value)}/>
-            </FloatingLabel>
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch('/api/post_product', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            console.log(data);
+            resetForm();
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
-            <FloatingLabel controlId="price" label="Price">
-                <Form.Control value={price} type="text" placeholder="Enter your price" onChange={e => setPrice(e.target.value)}/>
-            </FloatingLabel>
+    const resetForm = () => {
+        setFormData({ id: '', name: '', price: '', description: '', url: '' });
+    };
 
-            <FloatingLabel controlId="description" label="Description">
-                <Form.Control value={description} type="text" placeholder="Description" onChange={e => setDescription(e.target.value)}/>
-            </FloatingLabel>
-
-            <FloatingLabel controlId="url" label="URL">
-                <Form.Control value={url} type="text" placeholder="URL" onChange={e => setUrl(e.target.value)}/>
-            </FloatingLabel>
-        </Form>
-        <br/>
-      <Button variant="primary" onClick={UploadData}>UPLOAD</Button>
-    </Card.Body>
-  </Card>
-  </div>
-  );
+    return (
+        <Container fluid>
+            <Row>
+                <Col md={12}>
+                    <Card>
+                        <Card.Header>ADMIN DASHBOARD - {getTitle()}</Card.Header>
+                        <Card.Body>
+                            <Form>
+                                {Object.entries(formData).map(([key, value]) => (
+                                    <FloatingLabel key={key} controlId={key} label={key.toUpperCase()} className="mb-3">
+                                        <Form.Control
+                                            type="text"
+                                            placeholder={key.toUpperCase()}
+                                            value={value}
+                                            onChange={handleChange(key)}
+                                        />
+                                    </FloatingLabel>
+                                ))}
+                                <Button variant="primary" onClick={handleSubmit}>Upload</Button>
+                                <Button variant="secondary" onClick={resetForm} className="ms-2">Reset</Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
 
 export default AdminPage;

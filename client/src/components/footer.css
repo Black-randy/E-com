@@ -1,0 +1,9 @@
+/* App.css */
+.footer {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .footer.hidden {
+    transform: translateY(100%);
+  }
+  

@@ -1,87 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import {
-  MDBBtn,
   MDBContainer,
+  MDBRow,
+  MDBCol,
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBCheckbox,
+  MDBBtn,
   MDBIcon
-}
-from 'mdb-react-ui-kit';
-import { getAuth, createUserWithEmailAndPassword  } from "firebase/auth";
-import { useState } from 'react';
+} from 'mdb-react-ui-kit';
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import './signup.css';
 
-function SignUp() {
+function SignUpPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const [email,setEmail] = useState();
-  const [password,setPassword] =useState();
+  const handleSignUp = async () => {
+    try {
+      await createUserWithEmailAndPassword(getAuth(), email, password);
+      navigate('/');
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-  const auth = getAuth();
+  const handleSignInWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(getAuth(), provider);
+      navigate('/admin');
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-  function LoginWithEmail(){
-    console.log("Login Function")
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user)
-      window.location.href = '/';
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode,errorMessage)
-    });
-  }
-  
-    return (
-        <MDBContainer fluid>
-    
-          <div className="p-5 bg-image" style={{backgroundImage: 'url(https://mdbootstrap.com/img/new/textures/full/171.jpg)', height: '300px'}}></div>
-    
-          <MDBCard className='mx-5 mb-5 p-5 shadow-5' style={{marginTop: '-100px', background: 'hsla(0, 0%, 100%, 0.8)', backdropFilter: 'blur(30px)'}}>
-            <MDBCardBody className='p-5 text-center'>
-    
-              <h2 className="fw-bold mb-5">SignUp Now</h2>
-    
-   
-              <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email' onChange={e=>setEmail(e.target.value)}/>
-              <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password' onChange={e=> setPassword(e.target.value)}/>
-    
-              <div className='d-flex justify-content-center mb-4'>
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-              </div>
-    
-              <MDBBtn className='w-100 mb-4' size='md' onClick={LoginWithEmail}>SIGN UP</MDBBtn>
-    
+  return (
+    <MDBContainer fluid className='p-4 background-image overflow-hidden'>
+      <MDBRow>
+        <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
+          <h1 className="my-5 display-3 fw-bold ls-tight px-3 login-title">
+            Willow Tree
+            <br />
+            <span className="text-accent">for your Home</span>
+          </h1>
+        </MDBCol>
+        <MDBCol md='6' className='position-relative'>
+          <MDBCard className='my-5 bg-glass'>
+            <MDBCardBody className='p-5 text-black'>
+              <MDBInput wrapperClass='mb-4' onChange={e => setEmail(e.target.value)} label='Email' id='emailSignUp' type='email' />
+              <MDBInput wrapperClass='mb-4' onChange={e => setPassword(e.target.value)} label='Password' id='passwordSignUp' type='password' />
+              <MDBBtn className='w-100 mb-4' onClick={handleSignUp}>SIGN UP</MDBBtn>
               <div className="text-center">
-    
+                <p>Already have an account? <Link to="/login">Login now</Link></p>
                 <p>or sign up with:</p>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='facebook-f' size="sm"/>
+                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }} onClick={handleSignInWithGoogle}>
+                  <MDBIcon fab icon='google' size="sm" />
                 </MDBBtn>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='twitter' size="sm"/>
-                </MDBBtn>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='google' size="sm"/>
-                </MDBBtn>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='github' size="sm"/>
-                </MDBBtn>
-    
               </div>
-    
             </MDBCardBody>
           </MDBCard>
-    
-        </MDBContainer>
-      );
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
+  );
 }
 
-export default SignUp;
+export default SignUpPage;

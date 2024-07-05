@@ -1,118 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import {
-  MDBBtn,
   MDBContainer,
+  MDBRow,
+  MDBCol,
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBCheckbox,
+  MDBBtn,
   MDBIcon
-}
-from 'mdb-react-ui-kit';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from 'react';
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
+} from 'mdb-react-ui-kit';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import './login.css';
 
 function Login() {
-  
-  const provider = new GoogleAuthProvider();
-  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
-  const [email,setEmail] = useState();
-  const [password,setPassword] =useState();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const auth = getAuth();
+  const provider = new GoogleAuthProvider();
 
-  function LoginWithEmail(){
-    console.log("Login Function")
+  const loginWithEmail = () => {
+    if (!email || !password) {
+        setError('Email and password are required');
+        return;
+    }
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user)
-      window.location.href = '/';
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode,errorMessage)
-    });
-  }
+      .then(() => {
+        console.log('Login successful'); // Log success message to console
+        navigate('/admin');
+      })
+      .catch((error) => {
+        setError(error.code === 'auth/wrong-password' ? 'Invalid password' : 'Login failed');
+      });
+};
 
-  function signupWithGoogle(){
-    console.log("Sign up with Google")
+  const signupWithGoogle = () => {
     signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    //const credential = GoogleAuthProvider.credentialFromResult(result);
-    //const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    console.log(user)
-    window.location.href = '/';
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    //const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    //const email = error.customData.email;
-    // The AuthCredential type that was used.
-    //const credential = GoogleAuthProvider.credentialFromError(error);
-    console.log("error", errorMessage)
-    // ...
-  });
-  }
-  
-    return (
-        <MDBContainer fluid>
-    
-          <div className="p-5 bg-image" style={{backgroundImage: 'url(https://mdbootstrap.com/img/new/textures/full/171.jpg)', height: '300px'}}></div>
-    
-          <MDBCard className='mx-5 mb-5 p-5 shadow-5' style={{marginTop: '-100px', background: 'hsla(0, 0%, 100%, 0.8)', backdropFilter: 'blur(30px)'}}>
-            <MDBCardBody className='p-5 text-center'>
-    
-              <h2 className="fw-bold mb-5">Login Now</h2>
-    
-   
-              <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email' onChange={e=>setEmail(e.target.value)}/>
-              <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password' onChange={e=> setPassword(e.target.value)}/>
-    
-              <div className='d-flex justify-content-center mb-4'>
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-              </div>
-    
-              <MDBBtn className='w-100 mb-4' size='md' onClick={LoginWithEmail}>LOG IN</MDBBtn>
-    
+    .then(() => {
+      console.log('Login successful'); // Log success message to console
+      navigate('/admin');
+    }).catch((error) => {
+        setError('Google sign-in failed');
+      });
+  };
+
+  return (
+    <MDBContainer fluid className='p-4 background-image overflow-hidden'>
+      <MDBRow>
+        <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
+          <h1 className="my-5 display-3 fw-bold ls-tight px-3 login-title">
+            Willow Tree
+            <br />
+            <span className="text-accent">for your Home</span>
+          </h1>
+        </MDBCol>
+        <MDBCol md='6' className='position-relative'>
+          <MDBCard className='my-5 bg-glass'>
+            <MDBCardBody className='p-5 text-black'>
+              {error && (
+                <div className={`alert alert-danger`} role="alert">
+                  {error}
+                </div>
+              )}
+              <MDBInput wrapperClass='mb-4' onChange={e => setEmail(e.target.value)} label='Email' id='emailSignUp' type='email' />
+              <MDBInput wrapperClass='mb-4' onChange={e => setPassword(e.target.value)} label='Password' id='passwordSignUp' type='password' />
+              <MDBBtn className='w-100 mb-4' onClick={loginWithEmail}>Login</MDBBtn>
               <div className="text-center">
-    
+                <div>
+                  <p>Not a member? <Link to="/signup">Sign up now</Link></p>
+                </div>
                 <p>or sign up with:</p>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='facebook-f' size="sm"/>
-                </MDBBtn>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='twitter' size="sm"/>
-                </MDBBtn>
-    
                 <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }} onClick={signupWithGoogle}>
-                  <MDBIcon fab icon='google' size="sm"/>
+                  <MDBIcon fab icon='google' size="sm" />
                 </MDBBtn>
-    
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='github' size="sm"/>
-                </MDBBtn>
-    
               </div>
-    
             </MDBCardBody>
           </MDBCard>
-    
-        </MDBContainer>
-      );
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
+  );
 }
 
 export default Login;

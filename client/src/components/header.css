@@ -1,0 +1,23 @@
+/* Custom Navbar Styles */
+.navbar-custom {
+    background-color: #a8d5ba; /* Pastel green background */
+}
+
+/* Link and brand styles */
+.navbar-custom .navbar-brand, .navbar-custom .nav-link {
+    color: #333; /* Darker text for better contrast */
+}
+
+/* Toggle button color customization */
+.navbar-custom .navbar-toggler {
+    border-color: #91c7b1; /* Border color */
+}
+
+.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Active link styling */
+.navbar-custom .nav-link.active, .navbar-custom .nav-link:hover {
+    color: #5e917e; /* A darker shade of green for hover/active states */
+}

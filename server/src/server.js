@@ -2,6 +2,9 @@ const express = require("express");
 require('dotenv').config();
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
+
+
 
 const { getCollectionItems, insertItem } = require('./dataService');
 
@@ -12,7 +15,7 @@ app.listen(PORT, () => {
 });
 
 app.get("/api", (req, res) => {
-    res.json({ message: "NODEJS API PROJECT", name: "Rashmika" });
+    res.json({ message: "NODEJS API PROJECT", name: "Randy" });
 });
 
 app.get("/api/getdata", async (req, res) => {
