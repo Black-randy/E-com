@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Firebase Imports for authentication and backend integration
 import { getAuth } from "firebase/auth";
 import { app } from './Firebase/Firebase';
-
+import { SpeedInsights } from "@vercel/speed-insights/react"
 // Feature Components for user authentication and navigation
 import Login from './login/login';
 import SignUp from './signup/signup';
@@ -32,6 +32,7 @@ function App() {
   getAuth(app);
 
   return (
+    <>
     <BrowserRouter>
       <Header />
       <Routes>
@@ -47,6 +48,8 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
+    <SpeedInsights />
+    </>
   );
 }
 
