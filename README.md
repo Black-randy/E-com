@@ -1,7 +1,3 @@
-Here's an optimized README file based on the information you provided:
-
----
-
 # WillowCraft E-commerce Platform
 
 Welcome to the repository for the WillowCraft E-commerce platform! This project is designed to showcase a modern, scalable solution for online commerce using MERN stack (MongoDB, Express.js, React, and Node.js).
@@ -71,6 +67,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Project Link: [https://github.com/Black-randy/E-com](https://github.com/Black-randy/E-com)
 
----
-
-This README template is succinct yet comprehensive, covering all the essential information about your project while maintaining a clear and professional format.
