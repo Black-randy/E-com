@@ -15,7 +15,7 @@ function Header({ currentView, setCurrentView }) {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            Willow Craft
+            Willow Tree
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

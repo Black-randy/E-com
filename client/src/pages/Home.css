@@ -1,0 +1,34 @@
+/* App.css */
+
+.App {
+    text-align: center;
+    background-image: url('https://raw.githubusercontent.com/Black-randy/E-com/main/Assetes/BG-image.jpg?token=GHSAT0AAAAAACSRLG3Y3UYAVEDWX6SEB4WMZUKIUUQ'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: black; 
+  }
+  
+  .App-header {
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    display: inline-block;
+    
+    background: rgba(102, 190, 125, 0.398);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.2px);
+    -webkit-backdrop-filter: blur(9.2px);
+    border: 1px solid rgba(121, 165, 123, 0.3);
+
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
