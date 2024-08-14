@@ -21,7 +21,7 @@ app.listen(PORT, () => {
 });
 
 app.get("/api", (req, res) => {
-    res.json({ message: "NODEJS API PROJECT", name: "Randy" });
+    res.json({ message: "NODEJS API PROJECT", name: "APi ✅" });
 });
 
 app.get("/api/getdata", async (req, res) => {
