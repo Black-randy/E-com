@@ -1,35 +1,32 @@
 import React from "react";
 import logo from "../assets/willow-tree-logo.png";
 import "../App.css";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Home.css';
 
 
 function Home() {
-  const [ setFeaturedProducts] = React.useState(null);
-  const [aboutInfo, setAboutInfo] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api/featured-products")
-      .then((res) => res.json())
-      .then((data) => setFeaturedProducts(data));
-
-    fetch("/api/about")
-      .then((res) => res.json())
-      .then((info) => setAboutInfo(info));
-  }, []);
-
-  
-
   return (
-  <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="Willow Tree Interiors" />
-        <p>Welcome to Willow Tree Interiors</p>
-        {/* {aboutInfo ? <p>{aboutInfo.description}</p> : <p>Loading company info...</p>} */}
-      </header>
-    </div>
+    <div className=" App relative bg-white pb-[110px] pt-[120px] dark:bg-dark lg:pt-[150px]">
+      <div className="container">
+
+        <div className="-mx-4 flex flex-wrap">
+          <div className="w-full px-4 lg:w-5/12">
+            <div className="hero-content">
+
+              <header className="App-header">
+                <img src={logo} alt="Willow Tree Interiors" />
+                <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-dark dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl">
+                  Welcome to Willow Tree Interiors
+                </h1>
+              </header>
+
+            </div >
+          </div>
+        </div>
+      </div>
+    </div >
   );
 }
 
